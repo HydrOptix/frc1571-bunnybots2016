@@ -54,14 +54,14 @@ public class RobotMap {
     	//instantiate all components to pass to Robot.java and add them to LiveWindow
         
     	//aimSystem components
-    	aimTalon = new CANTalon(5);
+    	aimTalon = new CANTalon(3);
     		LiveWindow.addActuator("aimSystem", "Aiming Talon", aimTalon);
     		aimTalon.reverseOutput(false);
     		aimTalon.setSafetyEnabled(true);
     		aimTalon.setExpiration(.1);
         
         //driveSystem components
-        steeringTalon = new CANTalon(0);
+        steeringTalon = new CANTalon(4);
 			LiveWindow.addActuator("driveSystem", "Steering Talon", steeringTalon);
 			steeringTalon.setFeedbackDevice(CANTalon.FeedbackDevice.AnalogPot);
 			steeringTalon.changeControlMode(CANTalon.TalonControlMode.Position);
@@ -70,36 +70,36 @@ public class RobotMap {
 			steeringTalon.setExpiration(.1);
 			steeringTalon.setAllowableClosedLoopErr(0);
 			
-		driveTalonLeftMaster = new CANTalon(1);
+		driveTalonLeftMaster = new CANTalon(6);
 			LiveWindow.addActuator("driveSystem", "Left Master Drive Talon", driveTalonLeftMaster);
 			driveTalonLeftMaster.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
 			driveTalonLeftMaster.reverseOutput(false);
 			
-		driveTalonLeftSlave = new CANTalon(2);
+		driveTalonLeftSlave = new CANTalon(7);
 			LiveWindow.addActuator("driveSystem", "Left Slave Drive Talon", driveTalonLeftSlave);
 			driveTalonLeftSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
 			driveTalonLeftSlave.set(driveTalonLeftMaster.getDeviceID());
 			driveTalonLeftSlave.reverseOutput(false);
 			
-		driveTalonRightSlave_1 = new CANTalon(3);
+		driveTalonRightSlave_1 = new CANTalon(0);
 			LiveWindow.addActuator("driveSystem", "Right Slave Drive Talon 1", driveTalonRightSlave_1);
 			driveTalonRightSlave_1.changeControlMode(CANTalon.TalonControlMode.Follower);
 			driveTalonRightSlave_1.set(driveTalonLeftMaster.getDeviceID());
 			driveTalonRightSlave_1.reverseOutput(true);
 			
-		driveTalonRightSlave_2 = new CANTalon(4);
+		driveTalonRightSlave_2 = new CANTalon(1);
 			LiveWindow.addActuator("driveSystem", "Right Slave Drive Talon 2", driveTalonRightSlave_2);
 			driveTalonRightSlave_2.changeControlMode(CANTalon.TalonControlMode.Follower);
 			driveTalonRightSlave_2.set(driveTalonLeftMaster.getDeviceID());
 			driveTalonRightSlave_2.reverseOutput(true);
         	
         //flywheels componenets
-		flywheelTalonMaster = new CANTalon(6);
+		flywheelTalonMaster = new CANTalon(2);
 			LiveWindow.addActuator("flywheels", "Master flywheel (Right)", flywheelTalonMaster);
 			flywheelTalonMaster.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
 			flywheelTalonMaster.reverseOutput(false);
 			
-		flywheelTalonSlave = new CANTalon(7);
+		flywheelTalonSlave = new CANTalon(5);
 			LiveWindow.addActuator("flywheels", "Slave flywheel (Left)", flywheelTalonSlave);
 			flywheelTalonSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
 			flywheelTalonSlave.set(flywheelTalonMaster.getDeviceID());
