@@ -31,7 +31,7 @@ public class RobotMap {
 		public static CANTalon flywheelTalonSlave;
 		
 	//gearbox components and variables
-		public static Solenoid gearboxSolenoid_Gear1; //We will determine whether these are solenoids or double solenoids later
+		public static Solenoid gearboxSolenoid_Gear1;
 		public static Solenoid gearboxSolenoid_Gear2;
 			public static double gearChangeDelaySeconds = Robot.prefs.getDouble("Gear Change Delay (Seconds)", 0);
 			
