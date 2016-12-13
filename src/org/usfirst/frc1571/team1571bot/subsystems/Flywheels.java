@@ -13,7 +13,7 @@ private final CANTalon flywheels = RobotMap.flywheelTalonMaster;
 
 
     public void initDefaultCommand() {
-        setDefaultCommand(new FlywheelsTrigger());
+        setDefaultCommand(new FlywheelsThrottle());
     }
     
     public void setSpeed(double speed) {

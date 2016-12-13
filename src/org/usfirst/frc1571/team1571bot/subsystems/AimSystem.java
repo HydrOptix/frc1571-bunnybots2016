@@ -12,7 +12,7 @@ public class AimSystem extends Subsystem {
 	private double aimSpeed = RobotMap.aimSpeed;
 
     public void initDefaultCommand() {
-    	setDefaultCommand(new AimGamepad());
+    	setDefaultCommand(new AimJoystick());
     }
     
     public double getSpeed() {
