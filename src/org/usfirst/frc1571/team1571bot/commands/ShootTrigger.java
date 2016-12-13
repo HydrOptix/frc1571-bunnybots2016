@@ -11,6 +11,7 @@ public class ShootTrigger extends Command {
 	Timer shootTimer = new Timer();
 	boolean firing;
 	boolean retracting;
+	boolean isFinished;
 
     public ShootTrigger() {
     	requires(Robot.shooter);
@@ -19,13 +20,14 @@ public class ShootTrigger extends Command {
     protected void initialize() {
     	firing = false;
     	retracting = false;
+    	isFinished = false;
     }
 
     protected void execute() {
+
+    	boolean triggerPressed = Robot.oi.shooterButtonTrigger.get();
     	
-    	double rightTrigger = Robot.oi.gamepadShooter.getRawAxis(3);
-    	
-    	if(rightTrigger > Robot.oi.gamepadShooter_deadzoneRadiusTriggers && !firing && !retracting) {
+    	if(triggerPressed && !firing && !retracting) {
     		firing = true;
     		Robot.shooter.setExtended(true);
     		shootTimer.reset();
@@ -42,12 +44,15 @@ public class ShootTrigger extends Command {
     	if(retracting && shootTimer.get() >= RobotMap.fireDelay) {
     		retracting = false;
     		shootTimer.stop();
+    		if(!triggerPressed) {
+    			isFinished = false;
+    		}
     	}
     	
     }
 
     protected boolean isFinished() {
-        return false;
+        return isFinished;
     }
 
     protected void end() {
