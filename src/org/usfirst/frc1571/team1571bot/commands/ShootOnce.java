@@ -1,34 +1,59 @@
 package org.usfirst.frc1571.team1571bot.commands;
 
 import org.usfirst.frc1571.team1571bot.Robot;
+import org.usfirst.frc1571.team1571bot.RobotMap;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ShootOnce extends Command {
+	
+	Timer shootTimer = new Timer();
+	boolean firing;
+	boolean retracting;
+	boolean isFinished;
 
     public ShootOnce() {
     	requires(Robot.shooter);
     }
 
-    // Called just before this Command runs the first time
     protected void initialize() {
+    	firing = false;
+    	retracting = false;
+    	isFinished = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
+    	if(!firing && !retracting) {
+    		firing = true;
+    		Robot.shooter.setExtended(true);
+    		shootTimer.reset();
+    		shootTimer.start();
+    	}
+    	
+    	if(firing && shootTimer.get() >= RobotMap.extendTime) {
+    		firing = false;
+    		Robot.shooter.setExtended(false);
+    		shootTimer.reset();
+    		retracting = true;
+    	}
+    	
+    	if(retracting && shootTimer.get() >= RobotMap.fireDelay) {
+    		retracting = false;
+    		shootTimer.stop();
+    		isFinished = false;
+    	}
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return isFinished;
     }
 
-    // Called once after isFinished returns true
     protected void end() {
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
     }
 }
