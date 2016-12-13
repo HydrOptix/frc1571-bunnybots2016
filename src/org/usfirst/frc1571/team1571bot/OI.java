@@ -20,20 +20,26 @@ public class OI {
     	
     	public JoystickButton driverButtonA;
         public JoystickButton driverButtonY;
+        public JoystickButton shooterButtonTrigger;
+        public JoystickButton shooterButtonSecondary;
             	
-    public Joystick gamepadShooter;
-	    public double gamepadShooter_deadzoneRadiusLStick = Robot.prefs.getDouble("gamepadShooter_deadzoneRadiusLStick", 0.2);
-		public double gamepadShooter_deadzoneRadiusTriggers = Robot.prefs.getDouble("gamepadShooter_deadzoneRadiusTriggers", 0.15);
+    public Joystick joystickShooter;
+	    public double gamepadShooter_deadzoneRadiusTwist = Robot.prefs.getDouble("gamepadShooter_deadzoneRadiusTwist", 0.26);
 				
     public OI() {
 
         gamepadDriver = new Joystick(0);
-        gamepadShooter = new Joystick(1);
+        joystickShooter = new Joystick(1);
         
         driverButtonY = new JoystickButton(gamepadDriver, 4);
-        driverButtonY.whenPressed(new SetGear(2));
+        	driverButtonY.whenPressed(new SetGear(2));
         driverButtonA = new JoystickButton(gamepadDriver, 1);
-        driverButtonA.whenPressed(new SetGear(1));
+        	driverButtonA.whenPressed(new SetGear(1));
+        
+        shooterButtonTrigger = new JoystickButton(joystickShooter, 1);
+        	shooterButtonTrigger.whenPressed(new ShootTrigger());
+        shooterButtonSecondary = new JoystickButton(joystickShooter, 2);
+        	shooterButtonSecondary.whenPressed(new ShootOnce());
 
         // SmartDashboard Buttons
         SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
