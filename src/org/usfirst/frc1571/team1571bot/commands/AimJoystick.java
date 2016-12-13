@@ -5,9 +5,9 @@ import org.usfirst.frc1571.team1571bot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class AimGamepad extends Command {
+public class AimJoystick extends Command {
 
-    public AimGamepad() {
+    public AimJoystick() {
     	requires(Robot.aimSystem);
     }
 
@@ -16,10 +16,10 @@ public class AimGamepad extends Command {
 
     protected void execute() {
     	
-    	double leftStickX = Robot.oi.gamepadShooter.getRawAxis(0);
+    	double stickTwist = Robot.oi.joystickShooter.getRawAxis(2);
     	
-    	if(Math.abs(leftStickX) > Robot.oi.gamepadShooter_deadzoneRadiusLStick) {
-    		Robot.aimSystem.setSpeed(leftStickX * RobotMap.aimSpeed);
+    	if(Math.abs(stickTwist) > Robot.oi.gamepadShooter_deadzoneRadiusTwist) {
+    		Robot.aimSystem.setSpeed(stickTwist * RobotMap.aimSpeed);
     	}
     	
     }
