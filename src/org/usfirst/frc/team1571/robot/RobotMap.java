@@ -9,16 +9,16 @@ public class RobotMap {
 
 	//aimSystem components and variables
 		public static CANTalon aimTalon;
-			public static double aimSpeed = Robot.prefs.getDouble("aimSpeed", 1);
+			public static double aimSpeed =1;
 	
     //driveSystem components and variables
 		public static CANTalon steeringTalon;
-			public static int steeringMinCounts = Robot.prefs.getInt("minSteeringCounts", 0);
-			public static int steeringMaxCounts = Robot.prefs.getInt("maxSteeringCounts", 31);
+			public static int steeringMinCounts = 0;
+			public static int steeringMaxCounts = 31;
 			public static int steeringCountsRange = steeringMaxCounts - steeringMinCounts;
 		
 		public static CANTalon driveTalonLeftMaster;
-			public static double driveSpeed = Robot.prefs.getDouble("driveSpeed", 1);
+			public static double driveSpeed = 1;
 		
 		public static CANTalon driveTalonLeftSlave; //All slave talons will later be set to the follower control mode
 		public static CANTalon driveTalonRightSlave_1; //right talons will be set to reverse output later
@@ -26,25 +26,25 @@ public class RobotMap {
 		
 	//flywheels components and variables
 		public static CANTalon flywheelTalonMaster;
-			public static double flywheelSpeed = Robot.prefs.getDouble("flywheelSpeed", 1);
+			public static double flywheelSpeed = 1;
 		
 		public static CANTalon flywheelTalonSlave;
 		
 	//gearbox components and variables
 		public static Solenoid gearboxSolenoid_Gear1;
 		public static Solenoid gearboxSolenoid_Gear2;
-			public static double gearChangeDelaySeconds = Robot.prefs.getDouble("Gear Change Delay (Seconds)", 0);
+			public static double gearChangeDelaySeconds = 0;
 			
 		public static Solenoid gearboxSolenoidGears[] = {gearboxSolenoid_Gear1,gearboxSolenoid_Gear2};
 		
 	//shooter components and variables
 		public static Solenoid shooterSolenoid;
-			public static double extendTime = Robot.prefs.getDouble("Fire Extend Time (Seconds)", .2);
-			public static double fireDelay = Robot.prefs.getDouble("Firing Delay (Seconds)", .2);
+			public static double extendTime = .2;
+			public static double fireDelay = .2;
     
 
     public static void init() {
-    	
+
     	//instantiate all components to pass to Robot.java and add them to LiveWindow
         
     	//aimSystem components

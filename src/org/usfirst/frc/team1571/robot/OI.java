@@ -2,7 +2,7 @@ package org.usfirst.frc.team1571.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team1571.commands.*;
+import org.usfirst.frc.team1571.robot.commands.*;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.*;
@@ -15,8 +15,8 @@ import edu.wpi.first.wpilibj.buttons.*;
 public class OI {
     
     public Joystick gamepadDriver;
-    	public double gamepadDriver_deadzoneRadiusLStick = Robot.prefs.getDouble("gamepadDriver_deadzoneRadiusLStick", 0.2);
-    	public double gamepadDriver_deadzoneRadiusTriggers = Robot.prefs.getDouble("gamepadDriver_deadzoneRadiusTriggers", 0.15);
+    	public double gamepadDriver_deadzoneRadiusLStick = 0.2;
+    	public double gamepadDriver_deadzoneRadiusTriggers = 0.15;
     	
     	public JoystickButton driverButtonA;
         public JoystickButton driverButtonY;
@@ -24,7 +24,7 @@ public class OI {
         public JoystickButton shooterButtonSecondary;
             	
     public Joystick joystickShooter;
-	    public double gamepadShooter_deadzoneRadiusTwist = Robot.prefs.getDouble("gamepadShooter_deadzoneRadiusTwist", 0.26);
+	    public double gamepadShooter_deadzoneRadiusTwist = 0.26;
 				
     public OI() {
 

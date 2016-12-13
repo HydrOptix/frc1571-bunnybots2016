@@ -1,7 +1,7 @@
-package org.usfirst.frc.team1571.subsystems;
+package org.usfirst.frc.team1571.robot.subsystems;
 
-import org.usfirst.frc.team1571.commands.*;
 import org.usfirst.frc.team1571.robot.RobotMap;
+import org.usfirst.frc.team1571.robot.commands.*;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;

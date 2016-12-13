@@ -1,27 +1,25 @@
 package org.usfirst.frc.team1571.robot;
 
-import org.usfirst.frc.team1571.commands.*;
-import org.usfirst.frc.team1571.subsystems.*;
+import org.usfirst.frc.team1571.robot.commands.*;
+import org.usfirst.frc.team1571.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 
     Command autonomousCommand;
-    
-    public static Preferences prefs;
-
-    public static OI oi;
     
     public static AimSystem aimSystem;
     public static DriveSystem driveSystem;
     public static Flywheels flywheels;
     public static Gearbox gearbox;
     public static Shooter shooter;
+    public static OI oi;
+
 
 
     public void robotInit() {
@@ -35,15 +33,13 @@ public class Robot extends IterativeRobot {
         oi = new OI();
 
         // instantiate the command used for the autonomous period
-        autonomousCommand = new AutonomousCommand();
-    }
-
-    public void disabledInit(){
-
-    }
-
-    public void disabledPeriodic() {
-        Scheduler.getInstance().run();
+//        autonomousCommand = new AutonomousCommand();
+        
+        SmartDashboard.putData(aimSystem);
+        SmartDashboard.putData(driveSystem);
+        SmartDashboard.putData(flywheels);
+        SmartDashboard.putData(gearbox);
+        SmartDashboard.putData(shooter);
     }
 
     public void autonomousInit() {
@@ -53,6 +49,7 @@ public class Robot extends IterativeRobot {
 
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        log();
     }
 
     public void teleopInit() {
@@ -60,7 +57,6 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        if (autonomousCommand != null) autonomousCommand.cancel();
     }
 
     public void teleopPeriodic() {
@@ -69,5 +65,8 @@ public class Robot extends IterativeRobot {
 
     public void testPeriodic() {
         LiveWindow.run();
+    }
+    
+    private void log() {
     }
 }
