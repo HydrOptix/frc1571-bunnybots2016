@@ -32,9 +32,9 @@ public class OI {
         joystickShooter = new Joystick(1);
         
         driverButtonY = new JoystickButton(gamepadDriver, 4);
-        	driverButtonY.whenPressed(new SetGear(2));
+        	driverButtonY.whenPressed(new SetGear2());
         driverButtonA = new JoystickButton(gamepadDriver, 1);
-        	driverButtonA.whenPressed(new SetGear(1));
+        	driverButtonA.whenPressed(new SetGear1());
         
         shooterButtonTrigger = new JoystickButton(joystickShooter, 1);
         	shooterButtonTrigger.whenPressed(new ShootTrigger());
@@ -44,8 +44,8 @@ public class OI {
         // SmartDashboard Buttons
         SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
         
-        SmartDashboard.putData("Gear 1", new SetGear(1));
-        SmartDashboard.putData("Gear 2", new SetGear(2));
+        SmartDashboard.putData("Gear 1", new SetGear1());
+        SmartDashboard.putData("Gear 2", new SetGear2());
         
         SmartDashboard.putData("Rotate Gun Counterclockwise", new AimSetSpeed(-1));
         SmartDashboard.putData("Stop Gun", new AimSetSpeed(0));
