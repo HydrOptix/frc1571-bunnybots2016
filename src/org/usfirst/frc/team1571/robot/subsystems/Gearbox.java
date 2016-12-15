@@ -3,45 +3,34 @@ package org.usfirst.frc.team1571.robot.subsystems;
 import org.usfirst.frc.team1571.robot.RobotMap;
 import org.usfirst.frc.team1571.robot.commands.*;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.SolenoidBase;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Gearbox extends Subsystem {
 
 
-	private final SolenoidBase solenoidGearArray[] = RobotMap.gearboxSolenoidGears;
-    private int currentGear;
+	private final Solenoid gear1 = RobotMap.gearboxSolenoid_Gear1;
+	private final Solenoid gear2 = RobotMap.gearboxSolenoid_Gear2;
+	
+	private int currentGear;
 
     public void initDefaultCommand() {
-    	setDefaultCommand(new SetGear(1));
+    	setDefaultCommand(new SetGear1());
     }
     
     public void setGear(int gearNumber, boolean extended) {
     	
-    	if(solenoidGearArray[gearNumber - 1] instanceof Solenoid) { //When I coded this, I didn't know if we were going to be using solenoids or double solenoids, so I check that here and run the appropriate code
-    		Solenoid solenoid = (Solenoid)solenoidGearArray[gearNumber - 1];
-    		solenoid.set(extended);
-    		
-    	} else if(solenoidGearArray[gearNumber - 1] instanceof DoubleSolenoid) { //The double solenoid code is slightly different from the solenoid code
-    		DoubleSolenoid doubleSolenoid = (DoubleSolenoid)solenoidGearArray[gearNumber - 1];
-    		if(extended) {
-    			doubleSolenoid.set(DoubleSolenoid.Value.kForward);
-    		} else {
-    			doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
-    		}
+    	if(gearNumber == 1) {
+    		gear1.set(extended);
+    		if(extended) currentGear = 1;
+    	} else if(gearNumber == 2) {
+    		gear2.set(extended);
+    		if(extended) currentGear = 2;
     	}
     	
-    	if(extended) {
-    		currentGear = gearNumber; //Save the current gear for later so if the driver tries to switch to the gear already selected time isn't lost
-    	} else if(gearNumber == this.getCurrentGear()) {
-    		System.out.println("Notice - Retracting currently engaged gear");
-    		currentGear = -1;
-    	}
     }
     
-    public int getCurrentGear() {
+    public int getCurrentGear () {
     	return currentGear;
     }
 }
