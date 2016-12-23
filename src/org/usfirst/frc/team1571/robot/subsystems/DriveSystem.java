@@ -41,6 +41,7 @@ public class DriveSystem extends Subsystem {
     
     public void resetPosition() {
     	driveTalons.setPosition(0);
+    	driveTalons.setPosition(0);
     }
     
     public double getEncoderCounts() {
