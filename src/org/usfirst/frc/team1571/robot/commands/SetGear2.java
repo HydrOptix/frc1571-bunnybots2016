@@ -21,22 +21,17 @@ public class SetGear2 extends Command {
     }
 
     protected void initialize() {
-    	if(Robot.gearbox.getCurrentGear() != 2) {
 	    	isFinished = false;
 	    	currentPhase = "retract";
-    	} else {
-    		isFinished = true;
-    		this.end();
-    	}
     }
 
     protected void execute() {
     	
     	if(currentPhase == "retract") {
-    		Robot.gearbox.setGear(1, false);
     		currentPhase = "extend";
     		gearTimer.start();
     	} else if(currentPhase == "extend" && gearTimer.hasPeriodPassed(gearDelay)) {
+    		Robot.gearbox.setGear(1, true);
     		Robot.gearbox.setGear(2, true);
     		gearTimer.reset();
     		currentPhase = "delay";

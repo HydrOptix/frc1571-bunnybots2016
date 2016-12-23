@@ -5,6 +5,7 @@ import org.usfirst.frc.team1571.robot.commands.*;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Gearbox extends Subsystem {
 
@@ -22,11 +23,14 @@ public class Gearbox extends Subsystem {
     	
     	if(gearNumber == 1) {
     		gear1.set(extended);
-    		if(extended) currentGear = 1;
     	} else if(gearNumber == 2) {
     		gear2.set(extended);
-    		if(extended) currentGear = 2;
     	}
+    	
+		if(!extended) currentGear = 1;
+		else currentGear = 2;
+		
+		SmartDashboard.putNumber("Current Gear", currentGear);;
     	
     }
     
