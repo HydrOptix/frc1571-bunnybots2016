@@ -24,7 +24,7 @@ public class OI {
         public JoystickButton shooterButtonSecondary;
             	
     public Joystick joystickShooter;
-	    public double gamepadShooter_deadzoneRadiusTwist = 0.26;
+	    public double gamepadShooter_deadzoneRadiusTwist = 0.5;
 				
     public OI() {
 
