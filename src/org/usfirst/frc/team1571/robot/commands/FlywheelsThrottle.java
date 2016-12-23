@@ -17,7 +17,7 @@ public class FlywheelsThrottle extends Command {
     protected void execute() {
     	
     	double throttle = Robot.oi.joystickShooter.getRawAxis(3);
-    	Robot.flywheels.setSpeed( ((throttle-1)/-2) * RobotMap.aimSpeed);
+    	Robot.flywheels.setSpeed(((throttle-1)/-2));
     }
 
     protected boolean isFinished() {
