@@ -4,6 +4,7 @@ import org.usfirst.frc.team1571.robot.Robot;
 import org.usfirst.frc.team1571.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AimJoystick extends Command {
 
@@ -18,8 +19,11 @@ public class AimJoystick extends Command {
     	
     	double stickTwist = Robot.oi.joystickShooter.getRawAxis(2);
     	
+    	SmartDashboard.putNumber("Joystick Value", stickTwist);
     	if(Math.abs(stickTwist) > Robot.oi.gamepadShooter_deadzoneRadiusTwist) {
-    		Robot.aimSystem.setSpeed(stickTwist * RobotMap.aimSpeed);
+    		Robot.aimSystem.setSpeed(stickTwist);
+    	} else {
+    		Robot.aimSystem.setSpeed(0);
     	}
     	
     }
