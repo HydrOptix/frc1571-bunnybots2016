@@ -1,7 +1,9 @@
 package org.usfirst.frc.team1571.robot;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class RobotMap {	
@@ -9,12 +11,12 @@ public class RobotMap {
 
 	//aimSystem components and variables
 		public static CANTalon aimTalon;
-			public static double aimSpeed =1;
+			public static double aimSpeed = -1;
 	
     //driveSystem components and variables
 		public static CANTalon steeringTalon;
 			public static int steeringMinCounts = 0;
-			public static int steeringMaxCounts = 31;
+			public static int steeringMaxCounts = 8;
 			public static int steeringCountsRange = steeringMaxCounts - steeringMinCounts;
 		
 		public static CANTalon driveTalonLeftMaster;
@@ -23,6 +25,8 @@ public class RobotMap {
 		public static CANTalon driveTalonLeftSlave; //All slave talons will later be set to the follower control mode
 		public static CANTalon driveTalonRightSlave_1; //right talons will be set to reverse output later
 		public static CANTalon driveTalonRightSlave_2;
+		
+		public static DigitalInput driveLimit;
 		
 	//flywheels components and variables
 		public static CANTalon flywheelTalonMaster;
@@ -38,9 +42,9 @@ public class RobotMap {
 		public static Solenoid gearboxSolenoidGears[] = {gearboxSolenoid_Gear1,gearboxSolenoid_Gear2};
 		
 	//shooter components and variables
-		public static Solenoid shooterSolenoid;
-			public static double extendTime = .2;
-			public static double fireDelay = .2;
+		public static DoubleSolenoid shooterSolenoid;
+			public static double extendTime = .05;
+			public static double fireDelay = .05;
     
 
     public static void init() {
@@ -51,18 +55,17 @@ public class RobotMap {
     	aimTalon = new CANTalon(3);
     		LiveWindow.addActuator("aimSystem", "Aiming Talon", aimTalon);
     		aimTalon.reverseOutput(false);
-    		aimTalon.setSafetyEnabled(true);
     		aimTalon.setExpiration(.1);
         
         //driveSystem components
         steeringTalon = new CANTalon(4);
 			LiveWindow.addActuator("driveSystem", "Steering Talon", steeringTalon);
-			steeringTalon.setFeedbackDevice(CANTalon.FeedbackDevice.AnalogPot);
+			steeringTalon.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 			steeringTalon.changeControlMode(CANTalon.TalonControlMode.Position);
-			steeringTalon.configPotentiometerTurns(10);
+			steeringTalon.configEncoderCodesPerRev(28);
 			steeringTalon.setSafetyEnabled(true);
 			steeringTalon.setExpiration(.1);
-			steeringTalon.setAllowableClosedLoopErr(0);
+			steeringTalon.setAllowableClosedLoopErr(1);
 			
 		driveTalonLeftMaster = new CANTalon(6);
 			LiveWindow.addActuator("driveSystem", "Left Master Drive Talon", driveTalonLeftMaster);
@@ -86,6 +89,9 @@ public class RobotMap {
 			driveTalonRightSlave_2.changeControlMode(CANTalon.TalonControlMode.Follower);
 			driveTalonRightSlave_2.set(driveTalonLeftMaster.getDeviceID());
 			driveTalonRightSlave_2.reverseOutput(true);
+			
+		driveLimit = new DigitalInput(0);
+			LiveWindow.addSensor("driveSystem", "Steering Limit", driveLimit);
         	
         //flywheels componenets
 		flywheelTalonMaster = new CANTalon(2);
@@ -106,7 +112,7 @@ public class RobotMap {
 			LiveWindow.addActuator("gearbox", "Gear 2 Solenoid", gearboxSolenoid_Gear2);
 		
         //shooter components
-		shooterSolenoid = new Solenoid(2);
+		shooterSolenoid = new DoubleSolenoid(2,3);
 			LiveWindow.addActuator("shooter", "Shooter Solenoid", shooterSolenoid);
     }
 }
