@@ -10,7 +10,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Flywheels extends Subsystem {
 
-private final CANTalon flywheels = RobotMap.flywheelTalonMaster;
+private final CANTalon flywheelTop = RobotMap.flywheelTalonBottom;
+private final CANTalon flywheelBottom = RobotMap.flywheelTalonTop;
 
 
     public void initDefaultCommand() {
@@ -18,12 +19,13 @@ private final CANTalon flywheels = RobotMap.flywheelTalonMaster;
     }
     
     public void setSpeed(double speed) {
-    	flywheels.set(speed);
+    	flywheelBottom.set(speed * RobotMap.bottomSpeedMultiplier);
+    	flywheelTop.set(speed * RobotMap.topSpeedMultiplier);
     	SmartDashboard.putNumber("Flywheel Speed", speed);
     }
     
     public double getSpeed() {
-    	return flywheels.get();
+    	return flywheelTop.get();
     }
 }
 
