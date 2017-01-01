@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DriveManual extends Command {
 	
 	private boolean isFinished;
-	private double steerPosition, speed;
+	private float steerPosition, speed;
 
-    public DriveManual(double steerPosition, double speed) {
+    public DriveManual(float steerPosition, float speed) {
         requires(Robot.driveSystem);
         
         this.steerPosition = steerPosition;
