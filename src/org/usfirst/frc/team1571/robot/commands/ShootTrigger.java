@@ -32,6 +32,7 @@ public class ShootTrigger extends Command {
     		Robot.shooter.setExtended(true);
     		shootTimer.reset();
     		shootTimer.start();
+    		Robot.shooter.setDarts(Robot.shooter.getDarts()-1);
     	}
     	
     	if(firing && shootTimer.get() >= RobotMap.extendTime) {
