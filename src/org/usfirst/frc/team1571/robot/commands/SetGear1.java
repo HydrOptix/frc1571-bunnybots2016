@@ -31,11 +31,12 @@ public class SetGear1 extends Command {
     		currentPhase = "extend";
     		gearTimer.start();
     	} else if(currentPhase == "extend" && gearTimer.hasPeriodPassed(gearDelay)) {
-    		Robot.gearbox.setGear(2, false);
-    		Robot.gearbox.setGear(1, false);
+    		Robot.gearbox.setGear(1, true);
+    		Robot.gearbox.setGear(2, true);
     		gearTimer.reset();
     		currentPhase = "delay";
     	} else if(currentPhase == "delay" && gearTimer.hasPeriodPassed(gearDelay)) {
+    		isFinished = true;
     		this.end();
     	}
     	
