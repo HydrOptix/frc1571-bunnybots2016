@@ -3,6 +3,7 @@ package org.usfirst.frc.team1571.robot;
 import org.usfirst.frc.team1571.robot.commands.*;
 import org.usfirst.frc.team1571.robot.subsystems.*;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -17,28 +18,38 @@ public class Robot extends IterativeRobot {
     public static DriveSystem driveSystem;
     public static Flywheels flywheels;
     public static Gearbox gearbox;
+    public static PowerDistributionSystem powerDistribution;
     public static Shooter shooter;
+    
     public static OI oi;
+    
+    CameraServer camera;
 
 
 
     public void robotInit() {
+    	
+    	camera = CameraServer.getInstance();
+    	camera.setQuality(50);
+    	camera.startAutomaticCapture("cam0");
+    	
     RobotMap.init();
         aimSystem = new AimSystem();
         driveSystem = new DriveSystem();
         flywheels = new Flywheels();
         gearbox = new Gearbox();
+        powerDistribution = new PowerDistributionSystem();
         shooter = new Shooter();
 
         oi = new OI();
 
-        // instantiate the command used for the autonomous period
-//        autonomousCommand = new AutonomousCommand();
+        autonomousCommand = new AutonomousCommand();
         
         SmartDashboard.putData(aimSystem);
         SmartDashboard.putData(driveSystem);
         SmartDashboard.putData(flywheels);
         SmartDashboard.putData(gearbox);
+        SmartDashboard.putData(powerDistribution);
         SmartDashboard.putData(shooter);
     }
 
