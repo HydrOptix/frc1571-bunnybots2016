@@ -16,7 +16,6 @@ public class Gearbox extends Subsystem {
 	private int currentGear;
 
     public void initDefaultCommand() {
-    	setDefaultCommand(new SetGear1());
     }
     
     public void setGear(int gearNumber, boolean extended) {
