@@ -9,41 +9,57 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ShootOnce extends Command {
 	
 	Timer shootTimer = new Timer();
-	boolean firing;
-	boolean retracting;
+	boolean firing, retracting;
 	boolean isFinished;
+	boolean triggerWasPressed;
 
     public ShootOnce() {
     	requires(Robot.shooter);
     }
 
-    protected void initialize() {
-    	firing = false;
-    	retracting = false;
-    	isFinished = false;
+    protected void initialize() {    	
+    	if(Robot.flywheels.getSpeed() == 0) {
+    		System.out.println("Warning - Firing with stationary flywheels prevented");
+    		isFinished = true;
+    		this.end();
+    	} else {
+        	firing = false;
+        	retracting = false;
+        	isFinished = false;
+        	triggerWasPressed = false;
+    	}    	
     }
 
-    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
+    	if(Robot.oi.gamepadDriver.getRawButton(2)) {
+    		RobotMap.fireDelay = .05;
+    	} else {
+    		RobotMap.fireDelay = .2;
+    	}
+    	
     	if(!firing && !retracting) {
+    		System.out.println("Firing Phase");
     		firing = true;
     		Robot.shooter.setExtended(true);
     		shootTimer.reset();
     		shootTimer.start();
+    		Robot.shooter.setDarts(Robot.shooter.getDarts()-1);
     	}
     	
-    	if(firing && shootTimer.get() >= RobotMap.extendTime) {
-    		firing = false;
+    	if(firing && !retracting && shootTimer.get() >= RobotMap.extendTime) {
+    		System.out.println("Retracting phase");
+    		retracting = true;
     		Robot.shooter.setExtended(false);
     		shootTimer.reset();
-    		retracting = true;
     	}
     	
-    	if(retracting && shootTimer.get() >= RobotMap.fireDelay) {
+    	if(firing && retracting && shootTimer.get() >= RobotMap.fireDelay) {
+    		System.out.println("Finishing phase");
     		retracting = false;
     		shootTimer.stop();
-    		isFinished = false;
+    		isFinished = true;
+    		this.end();
     	}
     }
 
@@ -55,5 +71,6 @@ public class ShootOnce extends Command {
     }
 
     protected void interrupted() {
+    	Robot.shooter.setExtended(false);
     }
 }
